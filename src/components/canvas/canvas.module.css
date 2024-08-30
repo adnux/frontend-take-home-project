@@ -1,0 +1,7 @@
+@value colors: "../../app/colors.css";
+@value blackColor, whiteColor from colors;
+
+.canvas {
+  border: '1px solid blackColor';
+  background-color: whiteColor;
+}

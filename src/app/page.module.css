@@ -8,11 +8,12 @@
 }
 
 .description {
-  display: inherit;
-  justify-content: inherit;
-  align-items: inherit;
-  font-size: 0.85rem;
+  /* display: inherit; */
+  /* justify-content: inherit; */
+  /* align-items: inherit; */
+  /* font-size: 0.85rem; */
   max-width: var(--max-width);
+  max-height: var(--max-height);
   width: 100%;
   z-index: 2;
   font-family: var(--font-mono);
@@ -197,6 +198,10 @@
 @media (prefers-color-scheme: dark) {
   .vercelLogo {
     filter: invert(1);
+  }
+
+  .code {
+    color: black;
   }
 
   .logo {
