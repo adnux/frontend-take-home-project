@@ -1,4 +1,4 @@
-@value colors: "../../app/colors.css";
+@value colors: "@/app/colors.css";
 @value blackColor, whiteColor, pearl from colors;
 
 .button {

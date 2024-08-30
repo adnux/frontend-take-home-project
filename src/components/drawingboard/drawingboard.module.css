@@ -1,3 +1,6 @@
+@value colors: '@/app/colors.css';
+@value whiteColor from colors;
+
 .drawing-board {
   display: flex;
   flex-direction: column;
@@ -5,5 +8,5 @@
   justify-content: center;
   height: 100vh;
   width: 100%;
-  background-color: #f0f0f0;
+  background-color: whiteColor;
 }

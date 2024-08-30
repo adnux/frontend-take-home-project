@@ -42,7 +42,7 @@ export default function Home() {
       <div className={styles.description}>
         <p>
           Click here to see the drawing board:&nbsp;
-          <Link href="/drawingboard"><b>Drawing board</b></Link>
+          <Link href="/drawingboard"><b className={styles.link}>Drawing board</b></Link>
         </p>
       </div>
 

@@ -1,8 +1,9 @@
-import DrawingBoard from '@/components/drawingboard/drawingboard';
+'use client';
+
 import Image from 'next/image';
 import styles from './page.module.css';
 
-export default function DrawingBoardPage() {
+export default function Home() {
 
   return (
     <main className={styles.main}>
@@ -21,8 +22,11 @@ export default function DrawingBoardPage() {
           priority
         />
       </div>
-
-      <DrawingBoard />
+      
+      <div>
+        <h1 className={styles.error}>An error has occurred</h1>
+        <p className={styles.error}>Please try again later</p>
+      </div>
     </main>
   )
 }

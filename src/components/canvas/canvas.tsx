@@ -30,18 +30,22 @@ const Canvas: React.FC<CanvasProps> = (props) => {
   const [isDrawing, setIsDrawing] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.lineCap = 'round';
-        ctx.lineWidth = tool === 'eraser' ? 10 : 5;
-        ctx.fillStyle = 'white';
-        setContext(ctx);
-        setDrawingHistory([ctx.getImageData(0, 0, canvas.width, canvas.height)]);
+    const initializeCanvas = () => {
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.lineCap = 'round';
+          ctx.lineWidth = tool === 'eraser' ? 10 : 5;
+          ctx.fillStyle = 'white';
+          setContext(ctx);
+          setDrawingHistory([ctx.getImageData(0, 0, canvas.width, canvas.height)]);
+        }
       }
-    }
-  }, [tool]);
+    };
+
+    initializeCanvas();
+  }, [setContext, setDrawingHistory, tool]);
 
   const undo = useCallback(() => {
     if (drawingHistory.length > 1 && context) {
@@ -52,7 +56,7 @@ const Canvas: React.FC<CanvasProps> = (props) => {
         setDrawingHistory(newHistory);
       }
     }
-  }, [context, drawingHistory]);
+  }, [context, drawingHistory, setDrawingHistory]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -68,52 +72,71 @@ const Canvas: React.FC<CanvasProps> = (props) => {
     };
   }, [undo]);
 
-  const saveDrawingState = useCallback((context: CanvasRenderingContext2D) => {
+  const saveDrawingState = useCallback(() => {
     if (context && canvasRef.current) {
       setDrawingHistory(prev => [
         ...prev,
         context.getImageData(0, 0, canvasRef.current!.width, canvasRef.current!.height)
       ]);
     }
-  }, [context]);
+  }, [context, setDrawingHistory]);
 
   const startDrawing = (event: MouseEvent<HTMLCanvasElement>) => {
     if (!context) return;
     if (tool === 'text') {
-      context.font = `${fontSize}px Arial`;
-      context.fillStyle = color;
-      context.textAlign = 'center';
-      context.textBaseline = 'middle';
-      context.fillText(text, event.nativeEvent.offsetX, event.nativeEvent.offsetY);
+      drawText(event);
+    } else {
+      beginDrawing(event);
     }
-    if (tool === 'pencil') {
-      setIsDrawing(true);
-      context.beginPath();
-      context.moveTo(event.nativeEvent.offsetX, event.nativeEvent.offsetY);
-    }
-    if (tool === 'eraser') {
-      setIsDrawing(true);
-      context.beginPath();
-      context.moveTo(event.nativeEvent.offsetX, event.nativeEvent.offsetY);
-    }
+  };
+
+  const drawText = (event: MouseEvent<HTMLCanvasElement>) => {
+    if (!context) return;
+    context.font = `${fontSize}px Arial`;
+    context.fillStyle = color;
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.fillText(text, event.nativeEvent.offsetX, event.nativeEvent.offsetY);
+  };
+
+  const beginDrawing = (event: MouseEvent<HTMLCanvasElement>) => {
+    if (!context) return;
+    setIsDrawing(true);
+    context.beginPath();
+    context.moveTo(event.nativeEvent.offsetX, event.nativeEvent.offsetY);
   };
 
   const draw = (event: MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing || !context) return;
     if (tool === 'pencil') {
-      context.strokeStyle = color;
-      context.lineTo(event.nativeEvent.offsetX, event.nativeEvent.offsetY);
-      context.stroke();
+      drawPencil(event);
+    } else if (tool === 'eraser') {
+      erase(event);
     }
-    if (tool === 'eraser') {
-      context.clearRect(event.nativeEvent.offsetX - 10, event.nativeEvent.offsetY - 10, 20, 20);
-    }
+  };
+
+  const drawPencil = (event: MouseEvent<HTMLCanvasElement>) => {
+    if (!context) return;
+    context.strokeStyle = color;
+    context.lineTo(event.nativeEvent.offsetX, event.nativeEvent.offsetY);
+    context.stroke();
+  };
+
+  const erase = (event: MouseEvent<HTMLCanvasElement>) => {
+    if (!context) return;
+    const eraserSize = 20;
+    context.clearRect(
+      event.nativeEvent.offsetX - eraserSize / 2,
+      event.nativeEvent.offsetY - eraserSize / 2,
+      eraserSize,
+      eraserSize
+    );
   };
 
   const stopDrawing = () => {
     if (context) {
       context.closePath();
-      saveDrawingState(context)
+      saveDrawingState();
     }
     setIsDrawing(false);
   };
@@ -121,6 +144,7 @@ const Canvas: React.FC<CanvasProps> = (props) => {
   return (
     <canvas
       ref={canvasRef}
+      data-testid="canvas"
       width={1000}
       height={600}
       onMouseDown={startDrawing}
@@ -128,7 +152,6 @@ const Canvas: React.FC<CanvasProps> = (props) => {
       onMouseUp={stopDrawing}
       onMouseLeave={stopDrawing}
       className={styles.canvas}
-      // style={{ border: '1px solid #000', backgroundColor: whiteColor }}
     />
   );
 };

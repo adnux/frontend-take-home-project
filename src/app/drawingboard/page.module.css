@@ -1,3 +1,6 @@
+@value colors: '@/app/colors.css';
+@value blackColor from colors;
+
 .main {
   display: flex;
   flex-direction: column;
@@ -18,9 +21,17 @@
 
 @media (prefers-color-scheme: dark) {
   .code {
-    color: black;
+    color: blackColor;
   }
   .logo {
     filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
   }
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: blackColor;
 }

@@ -17,7 +17,7 @@ const DrawingBoard: React.FC = () => {
   const [fontSize, setFontSize] = useState<number>(24);
 
   return (
-    <div className={styles.drawingBoard}>
+    <div data-testid="drawing-board" className={styles.drawingBoard}>
       <Toolbox
         selectedTool={tool}
         setTool={setTool}

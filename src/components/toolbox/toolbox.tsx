@@ -14,7 +14,7 @@ interface ToolboxProps {
   setFontSize: (fontSize: number) => void;
 }
 
-const builtButtonClasses = ({ tool, selectedTool }: { tool: string; selectedTool: string }) => {
+const buildButtonClasses = ({ tool, selectedTool }: { tool: string; selectedTool: string }) => {
   return `${styles.button} tool ${styles[tool]} ${selectedTool === tool ? styles.selected : ''}`;
 };
 
@@ -44,19 +44,22 @@ const Toolbox: React.FC<ToolboxProps> = ({
       <button
         name="pencil"
         type="button"
-        className={builtButtonClasses({ tool: 'pencil', selectedTool })}
+        data-testid="pencil"
+        className={buildButtonClasses({ tool: 'pencil', selectedTool })}
         onClick={() => { handleChangeTool('pencil') }}
       />
       <button
         name="eraser"
         type="button"
-        className={builtButtonClasses({ tool: 'eraser', selectedTool })}
+        data-testid="eraser"
+        className={buildButtonClasses({ tool: 'eraser', selectedTool })}
         onClick={() => { handleChangeTool('eraser') }}
       />
       <button
         name="text"
         type="button"
-        className={builtButtonClasses({ tool: 'text', selectedTool })}
+        data-testid="text"
+        className={buildButtonClasses({ tool: 'text', selectedTool })}
         onClick={() => { handleChangeTool('text') }}
       />
       <button
@@ -64,13 +67,18 @@ const Toolbox: React.FC<ToolboxProps> = ({
         type="button"
         disabled={true}
         title="Coming soon"
-        className={builtButtonClasses({ tool: 'rectangle', selectedTool })}
+        data-testid="rectangle"
+        className={buildButtonClasses({ tool: 'rectangle', selectedTool })}
         onClick={() => { handleChangeTool('rectangle') }}
       />
       <span className={styles.extra}>
         <input type="color" onChange={(e) => setColor(e.target.value)} defaultValue="#000000" />
-        {isTextBoxOpen && <TextBox text={text} setText={setText} fontSize={fontSize} setFontSize={setFontSize} />}
       </span>
+      {isTextBoxOpen && (
+        <span className={styles.extra}>
+          <TextBox text={text} setText={setText} fontSize={fontSize} setFontSize={setFontSize} />
+        </span>
+      )}
     </div>
   );
 };
