@@ -1,0 +1,18 @@
+@value colors: '@/app/colors.css';
+@value blackColor, whiteColor from colors;
+.textbox {
+  padding: 10px;
+}
+
+.label {
+  color: blackColor;
+}
+
+.input {
+  color: blackColor;
+  background-color: whiteColor;
+}
+
+.fontSize {
+  width: 112px;
+}

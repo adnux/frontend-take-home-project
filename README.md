@@ -6,6 +6,28 @@ Welcome! and thank you for taking the time to complete the Classkick take-home c
 You will have a week to complete the project and expect to spend < 5 hours on it. Once you have completed your solution, please reply with a link to a forked GitHub repository or your folder with any helpful instructions for us.
 If there's anything that you did not successfully complete, please add notes to your README section about what you could have done and reasoning behind the choices you made
 
+## Project Solution
+The project is a drawing board that allows users to draw on a canvas, select colors, and erase.
+It also allows users to add text to the canvas, and select font sizes.
+The rectangle tool is not implemented, but the code is ready to add the implementation.
+
+## Running the project
+Run the following commands to run the project:
+```
+npm install
+npm run dev
+```
+
+## Running the tests
+Run the following command to run the tests:
+```
+npm run test
+```
+OR
+```
+npm run test:watch
+```
+
 ## Motivation
 At Classkick, our teachers and students LOVE using our [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial) feature to create fun and engaging content.
 

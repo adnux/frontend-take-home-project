@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import styles from './page.module.css'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -8,7 +9,7 @@ export default function Home() {
       <div className={styles.code}>
         <p>Frontend Engineer Take Home Project</p>
       </div>
-      
+
       <div className={styles.center}>
         <Image
           className={styles.logo}
@@ -38,13 +39,22 @@ export default function Home() {
 
       <br></br>
 
+      <div className={styles.description}>
+        <p>
+          Click here to see the drawing board:&nbsp;
+          <Link href="/drawingboard"><b className={styles.link}>Drawing board</b></Link>
+        </p>
+      </div>
+
+      <br></br>
+
       <div className={styles.grid}>
         <div className={styles.card}>
           <h2>
             Motivation <span>-&gt;</span>
           </h2>
-          <p>At Classkick, our teachers and students LOVE using our 
-            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial"> Canvas </a> 
+          <p>At Classkick, our teachers and students LOVE using our
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial"> Canvas </a>
             feature to create fun and engaging content. <br></br><br></br>
             This project emulates the type of scenarios we face at Classkick, with similar technical challenges regarding UI and real-time UX.
           </p>
@@ -86,7 +96,7 @@ export default function Home() {
       <br></br><br></br>
       <h3>Mock &nbsp;</h3>
       <div className={styles.center}>
-        
+
         <Image
           src="/classkick-take-home.png"
           alt="Classkick Take Home"
