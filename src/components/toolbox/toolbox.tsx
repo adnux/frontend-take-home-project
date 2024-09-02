@@ -1,18 +1,8 @@
 import React from 'react';
+import { toolType } from '../drawingboard/drawingboard.types';
 import TextBox from '../textbox/textbox';
 import styles from './toolbox.module.css';
-
-interface ToolboxProps {
-  selectedTool: string;
-  text: string;
-  setTool: (tool: string) => void;
-  setColor: (color: string) => void;
-  setText: (text: string) => void;
-  isTextBoxOpen: boolean;
-  setIsTextBoxOpen: (isOpen: boolean) => void;
-  fontSize: number;
-  setFontSize: (fontSize: number) => void;
-}
+import { ToolboxProps } from './toolbox.types';
 
 const buildButtonClasses = ({ tool, selectedTool }: { tool: string; selectedTool: string }) => {
   return `${styles.button} tool ${styles[tool]} ${selectedTool === tool ? styles.selected : ''}`;
@@ -30,7 +20,7 @@ const Toolbox: React.FC<ToolboxProps> = ({
   setFontSize,
 }) => {
 
-  const handleChangeTool = (tool: string) => {
+  const handleChangeTool = (tool: toolType) => {
     if (tool === 'text') {
       setIsTextBoxOpen(true);
     } else {

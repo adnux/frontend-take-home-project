@@ -1,12 +1,6 @@
 import React, { useState, useRef, MouseEvent } from 'react';
 import styles from './textbox.module.css';
-
-interface TextBoxProps {
-  text: string;
-  setText: (text: string) => void;
-  fontSize: number;
-  setFontSize: (fontSize: number) => void;
-}
+import { TextBoxProps } from './textbox.types';
 
 const TextBox: React.FC<TextBoxProps> = ({ text, setText, fontSize, setFontSize }) => {
 

@@ -1,19 +1,8 @@
 'use client'
 
-import { whiteColor } from '@/utils/colors';
 import React, { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import styles from './canvas.module.css';
-
-interface CanvasProps {
-  context: CanvasRenderingContext2D | null;
-  setContext: (context: CanvasRenderingContext2D | null) => void;
-  drawingHistory: ImageData[];
-  setDrawingHistory: React.Dispatch<React.SetStateAction<ImageData[]>>;
-  tool: string;
-  color: string;
-  text: string;
-  fontSize: number;
-}
+import { CanvasProps } from './canvas.types';
 
 const Canvas: React.FC<CanvasProps> = (props) => {
   const {

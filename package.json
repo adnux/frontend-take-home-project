@@ -31,5 +31,8 @@
     "jest-canvas-mock": "^2.5.2",
     "jest-environment-jsdom": "^29.7.0",
     "ts-node": "^10.9.2"
+  },
+  "engines": {
+    "node": ">= 16.0.0"
   }
 }
