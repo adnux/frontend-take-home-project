@@ -33,22 +33,25 @@ const Canvas: React.FC<CanvasProps> = (props) => {
     const initializeCanvas = () => {
       const canvas = canvasRef.current;
       if (canvas) {
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.lineCap = 'round';
-          ctx.lineWidth = tool === 'eraser' ? 10 : 5;
-          ctx.fillStyle = 'white';
-          setContext(ctx);
-          setDrawingHistory([ctx.getImageData(0, 0, canvas.width, canvas.height)]);
+        const context = canvas.getContext('2d');
+        if (context) {
+          context.lineCap = 'round';
+          context.lineWidth = tool === 'eraser' ? 10 : 5;
+          context.fillStyle = 'white';
+          setContext(context);
+          setDrawingHistory([
+            context.getImageData(0, 0, canvas.width, canvas.height)
+          ]);
         }
       }
     };
 
     initializeCanvas();
-  }, [setContext, setDrawingHistory, tool]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const undo = useCallback(() => {
-    if (drawingHistory.length > 1 && context) {
+    if (drawingHistory.length > 1 && !!context) {
       const canvas = canvasRef.current;
       if (canvas) {
         const newHistory = drawingHistory.slice(0, -1);
@@ -150,7 +153,6 @@ const Canvas: React.FC<CanvasProps> = (props) => {
       onMouseDown={startDrawing}
       onMouseMove={draw}
       onMouseUp={stopDrawing}
-      onMouseLeave={stopDrawing}
       className={styles.canvas}
     />
   );
